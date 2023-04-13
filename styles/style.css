@@ -1,8 +1,26 @@
+main{
+  display: flex;
+}
+
+input{
+  margin-bottom: 4%;
+  border: 2px solid orange;
+  border-radius: 8px;
+  text-align: center; 
+}
+
+section {
+  text-align: center;
+}
+
 body {
     background-color: rgb(97, 31, 7);
     margin: 0;
     font-family: rubik;
     color: white;
+  }
+  p{
+    font-family:'Courier New', Courier, monospace
   }
   .container {
     padding: 40px;
@@ -13,11 +31,16 @@ body {
     text-align: center;
     font-size: 54px;
   }
-  div {
+  h2 {
     text-align: center;
   }
+  div {
+    text-align: center;
+    border: 2px solid rgb(94, 84, 106);;
+    background-color: rgb(25, 33, 148)
+  }
   ol {
-    justify-content: center;
+    justify-content: center;    
   }
   .card {
     list-style: none;

@@ -1,5 +1,6 @@
 const pokedex$$ = document.querySelector("#pokedex");
 
+//Parte de la función que obtiener datos de la API, para poder coger todos los pokemons necesarios
 const fetcher = async () => {
   let retorno = []
   let recoger 
@@ -10,7 +11,8 @@ const fetcher = async () => {
   return retorno
 }
 
-const get = async () => {
+// Funcion para recoger los datos de la API
+const getpokemon = async () => {
   const response  = await fetcher()
   let pokemons = [];
   for (respuestas in response){
@@ -20,7 +22,7 @@ const get = async () => {
   return pokemons;
 };
 
-
+// Constante para almacenar los datos de los pokemons
 const pokemon = (results) => {  
   return results.map((result) => ({
   name: result.name,
@@ -30,22 +32,26 @@ const pokemon = (results) => {
   }))
 }
 
+// Constante para dibujar los pokemon en el proyecto
 const draw = (pokemons) => {  
   console.log(pokemons)
   pokedex$$.innerHTML = "";
   for (const pokemon of pokemons) {
     console.log(pokemon)
     const div$$ = document.createElement("div");
-    div$$.innerHTML = ` 
+    div$$.innerHTML = `<span style='color:#FF9999'> 
     <h2>${pokemon.name}</h2>
     <img src="${pokemon.image}" alt="${pokemon.type}">
+    <p>${pokemon.type}</p>
     <p>${pokemon.id}</p>
+    </span></span>
     `;
     pokedex$$.appendChild(div$$);
   }
 };
 
-const searchCharacter = (arrayPokemons, filtro) => {
+//Parte de takeInput, filtra los datos obtenidos y llama a draw para dibujar solo los pokemon filtrados
+const searchPokemon = (arrayPokemons, filtro) => {
   let filteredPokemons = arrayPokemons.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(filtro.toLowerCase())
   );
@@ -53,8 +59,8 @@ const searchCharacter = (arrayPokemons, filtro) => {
   draw(filteredPokemons);
 };
 
+// Constante para recoger datos escritos en la barra de busqueda de pokemon
 const takeInput = (pokemons) => {
-  const h1$$ = document.querySelector("h1")
   let h2$$ = document.createElement("h2")
   let h2Text$$ = document.createTextNode("Buscador Pokemon")
   h2$$.appendChild(h2Text$$)
@@ -65,14 +71,15 @@ const takeInput = (pokemons) => {
 
     const input$$ = document.querySelector("input");
     input$$.addEventListener("input", () =>
-      searchCharacter(pokemons, input$$.value)
+      searchPokemon(pokemons, input$$.value)
   );
 };
 
+//Inicio de la aplicación, llamada a otras funciones
 const init = async () => {   
-    const characters = await get();
+    const characters = await getpokemon();
     const mapedPokemon = pokemon(characters)
-    console.log(mapedPokemon)
+    // console.log(mapedPokemon)
     draw(mapedPokemon);
     takeInput(mapedPokemon);
   
